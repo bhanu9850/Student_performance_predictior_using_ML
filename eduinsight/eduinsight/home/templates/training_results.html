@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Training Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        strong {
+            color: #3498db;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 16px;
+            color: #27ae60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>✅ Model Trained Successfully</h1>
+        <p><strong>R² Score:</strong> {{ r2_score }}</p>
+        <p><strong>Mean Absolute Error (MAE):</strong> {{ mae }}</p>
+        <p><strong>Root Mean Squared Error (RMSE):</strong> {{ rmse }}</p>
+
+        <a class="back-link" href="/predict/">→ Go to Prediction Page</a>
+    </div>
+
+</body>
+</html>

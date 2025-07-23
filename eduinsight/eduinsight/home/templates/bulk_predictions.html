@@ -1,0 +1,129 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bulk Predictions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 90%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .download-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .download-link a {
+            font-size: 16px;
+            color: #27ae60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .download-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📊 Bulk Exam Score Predictions</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="data_file" accept=".csv" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if error %}
+        <p class="error">⚠️ {{ error }}</p>
+    {% endif %}
+
+    {% if rows %}
+        <h3 style="text-align:center;">Predicted Results</h3>
+        <table>
+            <tr>
+                {% for col in columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+            {% for row in rows %}
+                <tr>
+                    {% for col in columns %}
+                        <td>{{ row|get_item:col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if download_url %}
+        <div class="download-link">
+            <p>⬇️ <a href="{{ download_url }}">Download Prediction CSV</a></p>
+        </div>
+    {% endif %}
+
+</body>
+</html>
